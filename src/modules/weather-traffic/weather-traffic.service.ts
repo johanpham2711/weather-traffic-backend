@@ -2,12 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { ITrafficImagesWithName } from 'src/interfaces';
 import { fetchTrafficImages, fetchWeatherForecast, matchForecastWeather, matchNearestArea } from 'src/utils';
 
+import { RedisService } from '../redis';
+
 import { GetLocationDto } from './dtos';
 
 @Injectable()
 export class WeatherTrafficService {
+  constructor(private readonly redisService: RedisService) {}
   async searchLocation(query: GetLocationDto): Promise<ITrafficImagesWithName[]> {
     const { dateTime } = query;
+
+    const cacheData = await this.redisService.get(dateTime);
+    if (cacheData) {
+      return JSON.parse(cacheData);
+    }
+
     const [trafficImagesData, weatherForecastData] = await Promise.all([
       fetchTrafficImages(dateTime),
       fetchWeatherForecast(dateTime),
@@ -33,6 +42,8 @@ export class WeatherTrafficService {
         forecastWeather,
       };
     });
+
+    await this.redisService.setExpire(dateTime, JSON.stringify(locationsWithName));
 
     return locationsWithName;
   }
