@@ -18,12 +18,16 @@ export class ReportService {
   }
 
   async getRecentSearches(query: GetRecentSearchesDto): Promise<Report[]> {
-    const { limit = LIMIT } = query;
+    try {
+      const { limit = LIMIT } = query;
 
-    return this.reportRepository.find({
-      order: [['createdAt', 'DESC']],
-      limit,
-    });
+      return this.reportRepository.find({
+        order: [['createdAt', 'DESC']],
+        limit,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async getTopPeriodSearches(query: GetTopPeriodSearchesDto): Promise<Report[]> {

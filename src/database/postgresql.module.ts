@@ -9,17 +9,30 @@ import * as models from './entities';
   imports: [
     SequelizeModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: () => ({
-        dialect: 'postgres',
-        autoLoadModels: false,
-        models: Object.values(models),
-        logging: false,
-        query: {
-          raw: true,
-        },
-        dialectOptions: application.environment != 'local' ? sslConfig : {},
-        ...postgresql,
-      }),
+      useFactory: () => {
+        console.log({
+          dialect: 'postgres',
+          autoLoadModels: false,
+          models: Object.values(models),
+          logging: false,
+          query: {
+            raw: true,
+          },
+          dialectOptions: application.environment != 'local' ? sslConfig : {},
+          ...postgresql,
+        });
+        return {
+          dialect: 'postgres',
+          autoLoadModels: false,
+          models: Object.values(models),
+          logging: false,
+          query: {
+            raw: true,
+          },
+          dialectOptions: application.environment != 'local' ? sslConfig : {},
+          ...postgresql,
+        };
+      },
     }),
   ],
 })

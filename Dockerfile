@@ -1,14 +1,16 @@
-FROM node:18-alpine
+FROM node:18-alpine AS development
 
 WORKDIR /app
 
-COPY package.json package-lock.json yarn.lock ./
+COPY package*.json yarn.lock ./
 
 RUN yarn install
 
 ENV PATH=/app/node_modules/.bin:$PATH
 
-WORKDIR /app/source
+COPY . .
 
-CMD ["yarn", "start:prod"]
+EXPOSE 8080
+
+CMD ["yarn", "start:dev"]
 

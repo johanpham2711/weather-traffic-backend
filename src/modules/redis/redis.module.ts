@@ -8,6 +8,13 @@ import { RedisService } from './redis.service';
   imports: [
     RedisModule.forRootAsync({
       useFactory: () => {
+        console.log({
+          host: redis.host,
+          port: redis.port,
+          password: redis.password,
+          db: redis.db,
+          keyPrefix: redis.keyPrefix,
+        });
         return {
           config: {
             host: redis.host,
