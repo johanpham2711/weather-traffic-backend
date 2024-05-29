@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CACHE_KEYS } from 'src/constants';
 import { ITrafficImagesWithName } from 'src/interfaces';
 import { fetchTrafficImages, fetchWeatherForecast, matchForecastWeather, matchNearestArea } from 'src/utils';
 
@@ -13,7 +14,7 @@ export class WeatherTrafficService {
   async searchLocation(query: GetLocationDto): Promise<ITrafficImagesWithName[]> {
     const { dateTime } = query;
 
-    const cacheData = await this.redisService.get(dateTime);
+    const cacheData = await this.redisService.get(`${CACHE_KEYS.WEATHER_TRAFFIC}:${dateTime}`);
     if (cacheData) {
       return JSON.parse(cacheData);
     }
@@ -44,7 +45,7 @@ export class WeatherTrafficService {
       };
     });
 
-    await this.redisService.setExpire(dateTime, JSON.stringify(locationsWithName));
+    await this.redisService.setExpire(`${CACHE_KEYS.WEATHER_TRAFFIC}:${dateTime}`, JSON.stringify(locationsWithName));
 
     return locationsWithName;
   }
