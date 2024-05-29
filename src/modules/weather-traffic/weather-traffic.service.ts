@@ -3,12 +3,13 @@ import { ITrafficImagesWithName } from 'src/interfaces';
 import { fetchTrafficImages, fetchWeatherForecast, matchForecastWeather, matchNearestArea } from 'src/utils';
 
 import { RedisService } from '../redis';
+import { ReportService } from '../report/report.service';
 
 import { GetLocationDto } from './dtos';
 
 @Injectable()
 export class WeatherTrafficService {
-  constructor(private readonly redisService: RedisService) {}
+  constructor(private readonly redisService: RedisService, private readonly reportService: ReportService) {}
   async searchLocation(query: GetLocationDto): Promise<ITrafficImagesWithName[]> {
     const { dateTime } = query;
 

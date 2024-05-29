@@ -8,7 +8,7 @@ import {
   UpdateOptions,
 } from 'sequelize';
 import { Model, Repository } from 'sequelize-typescript';
-import { FIRST_PAGE, LIMIT_PAGE } from 'src/constants';
+import { FIRST_PAGE, LIMIT } from 'src/constants';
 import { IPaginationRes } from 'src/interfaces';
 
 export class BaseRepository<T extends Model> {
@@ -25,7 +25,7 @@ export class BaseRepository<T extends Model> {
   async paginate(
     findAndCountOptions?: FindAndCountOptions<T>,
     page = FIRST_PAGE,
-    limit = LIMIT_PAGE,
+    limit = LIMIT,
   ): Promise<IPaginationRes<T>> {
     const offset = (page - 1) * limit;
     const { rows, count } = await this.rawPaginate({

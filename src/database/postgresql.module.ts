@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { application, postgresql, sslConfig } from 'src/configs';
 
-// import * as models from './entities';
+import * as models from './entities';
 
 @Module({
   imports: [
@@ -12,8 +12,7 @@ import { application, postgresql, sslConfig } from 'src/configs';
       useFactory: () => ({
         dialect: 'postgres',
         autoLoadModels: false,
-        // models: Object.values(models),
-        models: [],
+        models: Object.values(models),
         logging: false,
         query: {
           raw: true,

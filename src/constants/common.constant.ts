@@ -1,6 +1,7 @@
 export const SPEC_KEY = 'SPEC';
-export const LIMIT_PAGE = 10;
+export const LIMIT = 10;
 export const FIRST_PAGE = 1;
+export const DEFAULT_PERIOD = 3600000;
 export const ENVS_ALLOW_DOCS = ['local', 'development'];
 
 export const CACHE_KEYS = {
