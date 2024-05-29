@@ -46,3 +46,7 @@ yarn mig:run
 # run with dev mode
 yarn start:dev
 ```
+
+## 3. API document
+Access the API document link bellow
+[http://localhost:8080/docs](http://localhost:8080/docs)
