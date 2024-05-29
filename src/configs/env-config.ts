@@ -23,3 +23,8 @@ export const postgresql = {
   password: process.env.POSTGRES_PASSWORD || 'password',
   database: process.env.POSTGRES_DATABASE || 'base',
 };
+
+export const thirdPartyApi = {
+  trafficImagesApiUrl: process.env.TRAFFIC_IMAGES_API_URL || '',
+  weatherForecastApiUrl: process.env.WEATHER_FORECAST_API_URL || '',
+};

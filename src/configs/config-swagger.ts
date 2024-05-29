@@ -7,6 +7,7 @@ export const swaggerConfig = (app: NestExpressApplication): void => {
     .setDescription('This is the API documentation for Weather Traffic!')
     .setVersion('1.0')
     .addBearerAuth()
+    .addTag('weather-traffic', 'Weather Traffic API')
     .addSecurity('basic', {
       type: 'http',
       scheme: 'basic',
