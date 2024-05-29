@@ -27,12 +27,22 @@
 ```
 git clone https://github.com/johanpham2711/weather-traffic-backend.git
 cd weather-traffic-backend
-yarn
+
+# create .env file
+
+# start Postgres and Redis
 docker compose up -d
+
+# install dependencies
+yarn
+
+# run database migrations
+yarn mig:run
 ```
 
-## 2. Run
+## 2. Run server
 
 ```
+# run with dev mode
 yarn start:dev
 ```
